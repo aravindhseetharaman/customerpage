@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Form</title>
+</head>
+<body>
+    <h1>Customer Information</h1>
+    <form id="customerForm">
+        <label for="customername">Customer Name:</label><br>
+        <input type="text" id="customername" name="customername" required><br><br>
+        
+        <label for="address">Address:</label><br>
+        <textarea id="address" name="address" required></textarea><br><br>
+        
+        <button type="button" onclick="saveCustomer()">Save</button>
+    </form>
+
+    <script>
+        function saveCustomer() {
+            const customerName = document.getElementById('customername').value;
+            const address = document.getElementById('address').value;
+
+            fetch('/save-customer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ customername: customerName, address: address }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Customer saved successfully!');
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
