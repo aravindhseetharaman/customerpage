@@ -18,26 +18,27 @@
     </form>
 
     <script>
-        function saveCustomer() {
-            const customerName = document.getElementById('customername').value;
-            const address = document.getElementById('address').value;
+    function saveCustomer() {
+        const customerName = document.getElementById('customername').value;
+        const address = document.getElementById('address').value;
 
-            fetch('/save-customer', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ customername: customerName, address: address }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Customer saved successfully!');
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
+        fetch('http://localhost:3000/save-customer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ customername: customerName, address: address }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Customer saved successfully!');
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
 </body>
 </html>
